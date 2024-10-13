@@ -1,10 +1,11 @@
 package Game_Project;
 
-// Base class representing a quiz level
-	public class Level {
-    protected int points;
-    protected int attempts;
-    protected int impossibleAttempt;
+    //Base class representing a quiz level
+    //The protected attributes only be accessed by classes that extend to Level
+    public class Level {
+	protected int points;
+	protected int attempts;
+	protected int impossibleAttempt;
 
     public Level() {
         points = 0;
@@ -14,8 +15,8 @@ package Game_Project;
 
     // Each level will implement this method to ask questions
     public boolean askQuestions() {
-		return false;
-	}
+	return false;
+    }
 
     public int getPoints() {
         return points;
@@ -41,9 +42,9 @@ package Game_Project;
     	System.out.println("<<< Remaining Attempts: " + impossibleAttempt + "\n");
     }
 
-    //It will reset the attempts when the user pick the wrong answers three times
+    //Resets all the attempts on different level
     public void resetAttempts() {
-        attempts = 3;
-        impossibleAttempt = 1;
+        attempts = 3;	//It will reset the attempts when the user pick the wrong answers three times
+        impossibleAttempt = 1;	//It will reset the attempt on the impossible level when the user pick the wrong answer
     }
 }
