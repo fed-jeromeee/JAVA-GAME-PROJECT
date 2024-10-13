@@ -1,0 +1,36 @@
+package Game_Project;
+
+import java.util.Scanner;
+
+class EasyLevel extends Level {
+    public boolean askQuestions() {
+        Scanner input = new Scanner(System.in);
+        String[] questions = {
+            "\n<<< EASY LEVEL!!! >>>\n\nQUESTION NUMBER 1:\n\nWhat is the capital of France? \na) Paris \nb) Berlin \nc) Rome \nd) London",
+            "QUESTION NUMBER 2:\n\nWhich continent is the Sahara Desert located in? \na) Africa \nb) Asia \nc) Europe \nd) Australia",
+            "QUESTION NUMBER 3:\n\nWhich ocean is the largest? \na) Atlantic \nb) Indian \nc) Pacific \nd) Arctic",
+            "QUESTION NUMBER 4:\n\nWhich country has the most population? \na) USA \nb) China \nc) Russia \nd) India",
+            "QUESTION NUMBER 5:\n\nWhich river is the longest? \na) Amazon \nb) Nile \nc) Mississippi \nd) Yangtze"
+        };
+        char[] correctAnswers = {'a', 'a', 'c', 'b', 'b'};
+        
+        //This for loop iterates through all the questions. It prints one question at a time using System.out.println()
+        for (int i = 0; i < questions.length; i++) {
+            System.out.println(questions[i]);
+            System.out.print("\nEnter you asnwer here: ");
+            char answer = input.next().charAt(0); //It grabs the token and ensures it takes only the first character
+            if (answer == correctAnswers[i]) {
+                System.out.println("\n--- CORRECT!! ---\n\n");
+                points += 10;  // Add 10 points for correct answer
+            } else {
+                System.out.println("\n--- WRONG ANSWER!! ---!\n\n");
+                loseAttempt();
+                if (attempts == 0) {
+                    System.out.println("You lost all your attempts!!");
+                    return false;   //Can't move to the next level
+                }
+            }
+        }
+        return true;  //Move to the medium level if the player complete all the questions
+    }
+}
