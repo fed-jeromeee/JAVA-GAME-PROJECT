@@ -1,0 +1,49 @@
+package Game_Project;
+
+// Base class representing a quiz level
+	public class Level {
+    protected int points;
+    protected int attempts;
+    protected int impossibleAttempt;
+
+    public Level() {
+        points = 0;
+        attempts = 3;  // User has 3 attempts
+        impossibleAttempt = 1;   //Impossible level has only 1 attempt
+    }
+
+    // Each level will implement this method to ask questions
+    public boolean askQuestions() {
+		return false;
+	}
+
+    public int getPoints() {
+        return points;
+    }
+
+    public int getAttempts() {
+        return attempts;
+    }
+    
+    public int getimpossibleAttempt() {
+    	return impossibleAttempt;
+    }
+
+    //Reducing the attempts when the user pick the wrong answer
+    public void loseAttempt() {
+        attempts--;
+        System.out.println("<<< Remaining Attempts: " + attempts + "\n");
+    }
+    
+    //Reducing the attempts on the impossible level when the user pick the wrong answer
+    public void loseImpossibleAttempts() {
+    	impossibleAttempt--;
+    	System.out.println("<<< Remaining Attempts: " + impossibleAttempt + "\n");
+    }
+
+    //It will reset the attempts when the user pick the wrong answers three times
+    public void resetAttempts() {
+        attempts = 3;
+        impossibleAttempt = 1;
+    }
+}
