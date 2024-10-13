@@ -1,0 +1,109 @@
+package Game_Project;
+
+import java.util.Scanner;
+
+class Main_Method {
+    private String playerName;
+    private int playerAge;
+    private int totalPoints;
+    private Level currentLevel;
+
+    //Constructor that initializes the game by assigning player's name and age and setting the total points to 0
+    public Main_Method(String name, int age) {
+        this.playerName = name;
+        this.playerAge = age;
+        this.totalPoints = 0;
+    }
+
+    public void startGame() {
+        Scanner input = new Scanner(System.in);
+        boolean gameRunning = true;	  //This loop will continue until the player chooses to exit (gameRunning = false;)
+
+        do {
+            System.out.println("\nHello, " + playerName + " (" + playerAge + " years old)");
+            System.out.println("1. Start Game");
+            System.out.println("2. View Points");
+            System.out.println("3. Exit");
+            System.out.print("Choose an option: ");
+            int choice = input.nextInt();
+
+            switch (choice) {
+                case 1:
+                    playGame();	  //Calling this playGame() method which is underneath on this startGame() method
+                    break;
+                case 2:
+                    System.out.println("Total Points: " + totalPoints);
+                    break;
+                case 3:
+                    System.out.println("Thanks for playing! Goodbye!");
+                    gameRunning = false;
+                    break;
+                default:
+                    System.out.println("Invalid option. Try again.");
+            }
+        } while (gameRunning);
+    }
+
+    //Controls the progression of the game through different level
+    private void playGame() {
+        currentLevel = new EasyLevel();		//It represents the current level of the game
+
+        if (!currentLevel.askQuestions()) {		//It checks if the player answered the questions correctly,
+            resetGame();						//If they fail, the game resets (resetGame()), and the player starts over
+            return;
+        }
+        totalPoints += currentLevel.getPoints();
+        System.out.println("Congrats! You passed the Easy Level!");
+        System.out.println("You've Gained: " + totalPoints);
+
+        currentLevel = new MediumLevel();
+        if (!currentLevel.askQuestions()) {
+            resetGame();						
+            return;
+        }
+        totalPoints += currentLevel.getPoints();
+        System.out.println("Congrats! You passed the Medium Level!");
+        System.out.println("You've Gained: " + totalPoints);
+
+        currentLevel = new HardLevel();
+        if (!currentLevel.askQuestions()) {
+            resetGame();
+            return;
+        }
+        totalPoints += currentLevel.getPoints();
+        System.out.println("Congrats! You passed the Hard Level!");
+        System.out.println("You've Gained: " + totalPoints);
+
+        currentLevel = new ImpossibleLevel();
+        if (!currentLevel.askQuestions()) {
+            resetGame();
+            return;
+        }
+        totalPoints += currentLevel.getPoints();
+        System.out.println("You completed the game!");
+
+        // Reward for completing the game
+        System.out.println("Your reward is: Word of Affirmation\n");
+        System.out.println("Great job! " + playerName + ", Always remember don't give up and always push yourself even more\nto achieve your dreams in life. Someday, all your hardworks\nwill be paid off!");
+    }
+
+    private void resetGame() {	  //It will reset the game if the player fails at any game
+        totalPoints = 0;
+        currentLevel.resetAttempts();
+        System.out.println("You lost all your attempts! Starting over from the Easy Level.");
+    }
+
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        
+        //Entry point of the program where it starts by asking the user for their name and age
+        System.out.println("<<< WELCOME TO GEOGRAPHY TEST GAME!!! >>>\n\n");
+        System.out.print("Enter your name: ");
+        String name = input.nextLine();
+        System.out.print("Enter your age: ");
+        int age = input.nextInt();
+
+        Main_Method game = new Main_Method(name, age);
+        game.startGame();	//Begin  the game
+    }
+}
